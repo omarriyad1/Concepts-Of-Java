@@ -1,0 +1,143 @@
+Name             Omar Abdelmoneam Riad Ibrahim
+ID  : 20206045   , Group   :  Sw engineering   ,  lab slot time : S3      ,  language :   Java
+
+Discuss the different ways to do generic programming in Java
+
+Using Generics: Java Generics is a powerful feature that allows you to write generic code that can work with different types of objects. You can use generics to create classes, interfaces , and methods that can work with any type of object
+
+Using Interfaces: Interfaces provide a way to define a set of methods that can be implemented by any class. By using interfaces, you can write generic code that works with any class that implements the interface
+
+Using Abstract Classes: Abstract classes provide a way to define a set of methods that must be implemented by any subclass. By using abstract classes, you can write generic code that works with any subclass
+
+Overall, each approach has its own advantages and disadvantages depending on the specific use case and requirements of the program being developed
+Write comprehensive programs (source codes) explaining generic programming with comments and explanations
+
+Create a Generics Class:
+
+class Main {
+  public static void main(String[] args) {   
+// initialize generic class   
+// with Integer data
+    GenericsClass<Integer> intObj = new GenericsClass<>(5);
+ System.out.println("Generic Class returns: " + intObj.getData());     // initialize generic class  // with String data 
+   GenericsClass<String> stringObj = new GenericsClass<>("Java Programming");
+    System.out.println("Generic Class returns: " + stringObj.getData()); }}
+
+// create a generics class
+
+//Here T is a placeholder for any data type. We can use this placeholder in our class or interface definition to define variables, methods, and return types.
+
+class GenericsClass<T> {
+ private T data;      // variable of T type
+  public GenericsClass(T data) {
+  this.data = data;
+    }
+  public T getData() { // method that return T type variable    return this.data;}
+}
+Output   //Generic Class returns: 5         
+        //Generic Class returns: Java Programming
+Create a Generics Method
+class Main {
+  public static void main(String[] args) {
+    // initialize the class with Integer data
+    DemoClass demo = new DemoClass();
+    // generics method working with String
+    demo.<String>genericsMethod("Java Programming");
+    // generics method working with integer
+    demo.<Integer>genericsMethod(25);
+  }
+}
+
+class DemoClass { // creae a generics method
+ public <T> void genericsMethod(T data) {  
+ System.out.println("Generics Method:");
+    System.out.println("Data Passed: " + data);
+}
+   }
+output   //Generics Method: Data Passed: Java Programming 
+        //Generics Method: Data Passed: 25
+
+polymorphism: there are 2 types of polymorphism static and dynamic polymorphism, Java Generics are used to achieve static polymorphism. The Java compiler verifies the program's type-correctness during compilation to make sure the right methods are called in accordance with the type of the object reference. This makes Java a statically typed language because the type of the object reference, not the type of the actual object, determines which method is invoked.
+
+ex :
+    public class Calculator<T extends Number> {
+    public T add(T a, T b) {
+return (T) (a.doubleValue() + b.doubleValue());
+}
+ }
+
+public class Main {
+    public static void main(String[] args) {
+        Calculator<Integer> intCalc = new Calculator<>(); 
+        int sum = intCalc.add(2, 3);
+        System.out.println("The sum of 2 and 3 is " + sum);
+       Calculator<Double> doubleCalc = new Calculator<>();
+        double result = doubleCalc.add(2.5, 3.5);
+        System.out.println("The sum of 2.5 and 3.5 is " + result);
+        }
+          }            //This example demonstrates how Java Generics can lass are other names for this base class.
+ex :
+    public class Person {be used for static polymorphism, allowing the same method to work with different data types, while still maintaining type safety at compile-time.
+Method overriding and inheritance can be used to create dynamic polymorphism.First, you need a base class that has the characteristics and actions that all derived classes share in order to perform dynamic polymorphism.The superclass or parent c
+
+   protected String name;
+   public Person(String name) {this.name = name;}
+   public void printName() {System.out.println("Name: " + name);} }
+public class Student extends Person {                                                ////By generating a Person reference to a Student object and downcasting it back to a Student object(accessing its method), we can show dynamic polymorphism in action. A Person object array is also created, and as we iterate through the array, we call the appropriate method based on the object's real class.
+   private int studentID; 
+   public Student(String name, int studentID)
+      {
+        super(name); 
+        this.studentID = studentID;
+      }
+   public void printID() 
+          {
+           System.out.println("ID: " + studentID);
+           
+           }
+      }
+
+simulating polymorphism: A fundamental idea in object-oriented programming is polymorphism, which enables objects from various classes to be treated as though they are members of the same class. Generic programming can simulate polymorphism in Java.
+
+ex :
+       public class Animal {}
+       public class Dog extends Animal {}
+       public class Cat extends Animal {}
+public class Main {public static void main(String[] args) 
+{                            // Create an array of Animals with a mix of Dogs and Cats
+ArrayList<Animal> animals = new ArrayList<Animal>();
+animals.add(new Dog()); 
+animals.add(new Cat());   
+animals.add(new Dog()); 
+for (Animal animal : animals) {
+ makeSound(animal);
+}          // Loop through the animals array and call the makeSound()method  }
+ public static <T extends Animal> void makeSound(T animal)
+         {
+           animal.makeSound();
+         }
+      }
+
+templates: Generic programming, which enables you to build code that can operate with various types of objects without being bound to a particular type at compile time is implemented in Java using templates.Templates, usually referred to as type parameters, are used to define generic classes, interfaces, and functions by serving as type placeholders. You specify the real type that will be used in place of the template when you create an instance of ageneric class or invoke a generic function.
+  
+ex :
+  public class MyGenericClass<T> {
+    private T data;                          //the MyGenericClass class is a generic class that uses the template T
+    public MyGenericClass(T data) 
+            {
+               this.data = data;
+             }
+    public T getData() 
+           { 
+            return data;
+           }
+              }
+
+simulating templates: Similar to how they are in certain other programming languages like C++ or Rust, Java does not directly support templates. To provide similar functionality, you can simulate templates in Java using a few different ways.One way to simulate templates in Java is to use a generic interface
+
+ex :
+ public interface MyGenericInterface<T> 
+{
+void doSomething(T data);
+}           //The generic interface MyGenericInterface in this code makes use of the template T. The actual type that will be used in place of T must be specified by any class that implements this interface
+
